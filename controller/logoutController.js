@@ -9,11 +9,11 @@ const logOut = async (req, res) => {
     await user.save();
     res.cookie('refreshToken', '', {
         expires: new Date('1970-01-01'),
-        httpOnly: true
+        httpOnly: true, sameSite: 'None', secure: true
     });
     res.cookie('accessToken', '', {
         expires: new Date('1970-01-01'),
-        httpOnly: true
+        httpOnly: true, sameSite: 'None', secure: true
     });
 
     res.sendStatus(200);
