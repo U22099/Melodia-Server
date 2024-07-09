@@ -1,6 +1,5 @@
 const allowedOrigin = [
-    'http://localhost:5173',
-    'http://localhost:7700'];
+    'https://melodia-f4nd.onrender.com'];
 
 const corsOption = {
     origin: (origin, callback) => {
