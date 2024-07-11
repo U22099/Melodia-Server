@@ -33,9 +33,12 @@ const handleNewUser = async (req, res) => {
             'accessToken': accessToken
         });
 
-        res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000});
-        res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure:true, maxAge: 60 * 1000});
-        res.status(201).json({'message': 'User created successfully!!'})
+        //res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000});
+        //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure:true, maxAge: 60 * 1000});
+        res.status(200).json({"token" : {
+	"accessToken" : accessToken,
+	"refreshToken" : refreshToken
+}});
     } catch (error) {
         console.log(error);
         res.status(500).json({'message' : error.message})

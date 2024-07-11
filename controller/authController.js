@@ -12,13 +12,14 @@ const handleLogin = async (req, res) => {
 
     const match = await bcrypt.compare(password, user.password);
     if(match){
+			let refreshToken;
         const accessToken = jwt.sign(
             {'username' : user.username}, 
             process.env.ACCESS_TOKEN_SECRET, 
             {expiresIn : '5m'}
         );
         if(rememberMe){      
-            const refreshToken = jwt.sign(
+            refreshToken = jwt.sign(
                 {'username' : user.username}, 
                 process.env.REFRESH_TOKEN_SECRET, 
                 {expiresIn : '1d'}
@@ -28,13 +29,17 @@ const handleLogin = async (req, res) => {
             user.accessToken = accessToken;
             user.markModified(['refreshToken', 'accessToken']);
             await user.save();
-            res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000});
+            //res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000});
+
         }
         user.accessToken = accessToken;
         user.markModified('accessToken');
         await user.save();
-        res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure : true, maxAge: 5 * 60 * 1000});
-        res.sendStatus(200);
+        //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure : true, maxAge: 5 * 60 * 1000});
+        res.status(200).json({"token" : {
+	"accessToken" : accessToken,
+	"refreshToken" : refreshToken
+}});
     } else {
         res.status(401).json({'message' : 'Incorrect Password'})
     }
