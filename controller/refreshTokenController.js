@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
 const handleRefreshToken = async (req, res) => {
-    const refreshToken = req.headers.Authorization.refreshToken;
+    const refreshToken = req.headers.Authorization.refreshToken.split(' ')[1];
     if(!refreshToken) return res.sendStatus(401);
     const user = await User.findOne({ refreshToken: refreshToken });
 
