@@ -2,7 +2,7 @@ const User = require('../model/User');
 const Music = require('../model/Music');
 
 const getData = async (req, res) => {
-    const accessToken =req.headers?.Authorization.accessToken.split(' ')[1] || req.headers?.authorization.accessToken.split(' ')[1];
+    const accessToken = req.headers.Authorization.split(' ')[1] || req.headers.authorization.split(' ')[1];
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
@@ -28,7 +28,7 @@ const getData = async (req, res) => {
 }
 
 const updateData = async (req, res) => {
-    const accessToken = req.headers?.Authorization.accessToken.split(' ')[1] || req.headers?.authorization.accessToken.split(' ')[1];
+    const accessToken = req.headers.Authorization.split(' ')[1] || req.headers.authorization.split(' ')[1];
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken })
     const newUsername = req.body.username;
@@ -50,7 +50,7 @@ const updateData = async (req, res) => {
     }
 }
 const deleteUser = async (req, res) => {
-    const accessToken = req.headers?.Authorization.accessToken.split(' ')[1] || req.headers?.authorization.accessToken.split(' ')[1];
+    const accessToken = req.headers.Authorization.split(' ')[1] || req.headers.authorization.split(' ')[1];
     if (!accessToken) return res.sendStatus(401);
     await User.findOneAndRemove({ accessToken: accessToken }, (err, user) => {
         if (err) {
