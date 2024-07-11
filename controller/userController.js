@@ -36,7 +36,7 @@ const updateData = async (req, res) => {
     const newImage = req.body.image;
 
     const userConflict = await User.findOne({$or: [{username: newUsername}, {email: newEmail}]});
-    if(userConflict) return res.status(409).json({"message": 'Username or Email already exists'})
+    if(userConflict&&(userConflict.username != user.username)) return res.status(409).json({"message": 'Username or Email already exists'})
     if (user&&newUsername&&newEmail&&newImage) {
         
         user.username = newUsername;
