@@ -22,7 +22,6 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
-    "music-metadata": "^8.3.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

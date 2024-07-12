@@ -1,14 +1,14 @@
 const User = require('../model/User');
 const logOut = async (req, res) => {
-    const accessToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
-    if(!accessToken) return res.sendStatus(401);
-    const user = await User.findOne({ accessToken: accessToken });
+    const refreshToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
+    if(!refreshToken) return res.sendStatus(401);
+    const user = await User.findOne({ refreshToken: refreshToken });
 
     if(user){
         user.refreshToken = "";
         user.accessToken = "";
+        await user.save();
     }
-    await user.save();
     //res.cookie('refreshToken', '', {
         //expires: new Date('1970-01-01'),
         //httpOnly: true, sameSite: 'None', secure: true

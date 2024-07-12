@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: false}));
 
 app.use(express.json({ limit: "100mb" }));
 app.use(cookieParser());
+app.use('/', require('./routes/home'));
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));

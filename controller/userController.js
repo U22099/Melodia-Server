@@ -50,9 +50,9 @@ const updateData = async (req, res) => {
     }
 }
 const deleteUser = async (req, res) => {
-    const accessToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
-    if (!accessToken) return res.sendStatus(401);
-    await User.findOneAndRemove({ accessToken: accessToken }, (err, user) => {
+    const refreshToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
+    if (!refreshToken) return res.sendStatus(401);
+    await User.findOneAndRemove({ refreshToken: refreshToken }, (err, user) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ "message": "Failed to delete user" });
