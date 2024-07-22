@@ -1,7 +1,7 @@
 const Music = require('../../model/Music');
 
 const getMusic = async (req, res) => {
-    const music = await Music.find();
+    const music = await Music.find({}, 'artist title image genre uploader');
 
     res.json({ "music": music });
 }
@@ -28,6 +28,13 @@ const addMusic = async (req, res) => {
         res.json({"message": "No Data Received"})
     }
 }
+const getMusicById = async (req, res) => {
+    const _id = req.body._id;
+    console.log(_id)
+    const music = await Music.findOne({id: _id}, 'data');
+
+    res.json({ "music": music });
+}
 
 
-module.exports = {getMusic, addMusic}
+module.exports = {getMusic, addMusic, getMusicById}
