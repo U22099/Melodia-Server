@@ -33,7 +33,6 @@ const addMusic = async (req, res) => {
 }
 const getMusicById = async (req, res) => {
     const _id = req.body._id;
-    console.log(_id)
     const music = await Music.findOne({_id: _id}, 'data');
 
     res.json({ "music": music });
