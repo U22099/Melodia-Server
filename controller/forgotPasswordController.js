@@ -11,7 +11,7 @@ const generateRandomPassword = () => {
     return password;
 }
 const sendEmail = async (req, res) => {
-    const email = req.body.input;
+    const email = req.body.email;
     const user = await User.findOne({ email: email });
     if (!user) return res.status(401).json({ "message": "No user found for this email" });
 
@@ -32,13 +32,16 @@ const sendEmail = async (req, res) => {
         to: email,
         subject: 'New Password Request',
         html: `
-        <!DOCTYPE html>
+         <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>New Password</title>
             <style>
+					 body{
+						background: black;
+					}
                 h1, span{
                     color: #1db954;
                 }
@@ -53,8 +56,8 @@ const sendEmail = async (req, res) => {
                     align-items: center;
                     padding: 10px 20px;
                     border-radius: 7px;
-                    background: black;
-							margin: 0px 20px;
+                    background-color: hsl(0,5%,10%);
+							margin: 0px 10px;
 							font-weight: 700;
 							font-size: 2em;
                 }
