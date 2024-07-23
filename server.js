@@ -29,6 +29,7 @@ app.use(cookieParser());
 app.use('/', require('./routes/home'));
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
+app.use('/forgotPassword', require('./routes/forgotPassword'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 app.use('/musicapi', require('./routes/api/musicApi'));
