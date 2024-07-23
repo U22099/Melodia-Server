@@ -12,7 +12,6 @@ const generateRandomPassword = () => {
 }
 const sendEmail = async (req, res) => {
     const email = req.body.input;
-	 console.log(email);
     const user = await User.findOne({ email: email });
     if (!user) return res.status(401).json({ "message": "No user found for this email" });
 
@@ -52,9 +51,12 @@ const sendEmail = async (req, res) => {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    padding: 20px;
+                    padding: 10px 20px;
                     border-radius: 7px;
-                    background: hsl(0, 5%, 5%);
+                    background: black;
+							margin: 0px 20px;
+							font-weight: 700;
+							font-size: 2em;
                 }
                 main:first-child{
                     color: white;
