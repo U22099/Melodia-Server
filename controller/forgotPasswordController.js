@@ -10,15 +10,15 @@ const generateRandomPassword = () => {
     }
     return password;
 }
-const sendEmail = (req, res) => {
+const sendEmail = async (req, res) => {
     const email = req.body.email;
-    const user = User.findOne({ email: email });
+    const user = await User.findOne({ email: email });
     if (!user) return res.status(401).json({ "message": "No user found for this email" });
 
     const password = generateRandomPassword();
-    const hash = bcrypt.hash(password, 10);
+    const hash = await bcrypt.hash(password, 10);
     user.password = hash;
-    user.save();
+    await user.save();
     let transportMail = nodemailer.createTransport({
         service: 'gmail',
         auth: {
