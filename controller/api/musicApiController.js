@@ -9,7 +9,6 @@ const getMusic = async (req, res) => {
 const addMusic = async (req, res) => {
     const data = req.body;
 
-    console.log(data)
     if (data.length != 0) {
         data.forEach(async (x) => {
             if(!(await Music.findOne({title: x.title}))){
