@@ -11,7 +11,7 @@ const generateRandomPassword = () => {
     return password;
 }
 const sendEmail = async (req, res) => {
-    const email = req.body.email;
+    const email = req.body.input;
     const user = await User.findOne({ email: email });
     if (!user) return res.status(401).json({ "message": "No user found for this email" });
 
@@ -40,7 +40,7 @@ const sendEmail = async (req, res) => {
             <title>New Password</title>
             <style>
 					 body{
-						background: black;
+						background-color: black;
 					}
                 h1, span{
                     color: #1db954;
