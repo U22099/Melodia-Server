@@ -20,10 +20,13 @@ const addMusic = async (req, res) => {
                     "data": x.data,
                     "uploader": x.uploader
                 });
+                res.json({ "message": `Uploaded successfully by ${data[0].uploader}` });
+            } else {
+                res.json({ "message": `Duplicate found! }` });
             }
         });
 
-        res.json({ "message": `Uploaded successfully by ${data[0].uploader}` });
+        
     } else {
         res.json({"message": "No Data Received"})
     }
