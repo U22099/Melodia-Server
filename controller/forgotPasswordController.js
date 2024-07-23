@@ -39,9 +39,6 @@ const sendEmail = async (req, res) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>New Password</title>
             <style>
-					 body{
-						background-color: black;
-					}
                 h1, span{
                     color: #1db954;
                 }
