@@ -18,6 +18,10 @@ const logSchema = new Schema({
         type: String,
         required: true
     },
+    expiresAt: {
+        type: Date,
+        expires: 604800
+    }
 });
 
 module.exports = mongoose.model('Log', logSchema)
