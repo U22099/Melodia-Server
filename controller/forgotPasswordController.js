@@ -28,9 +28,12 @@ const sendEmail = async (req, res) => {
     });
     
     let mailContent = {
-        from: process.env.EMAIL,
+        from:{
+	    name: "Melodia"
+	    address: process.env.EMAIL
+	},
         to: email,
-        subject: 'New Password Request',
+        subject: 'New Password Request From Melodia',
         html: `
          <!DOCTYPE html>
         <html lang="en">
