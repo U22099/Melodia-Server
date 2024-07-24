@@ -29,7 +29,7 @@ const sendEmail = async (req, res) => {
     
     let mailContent = {
         from:{
-	    name: "Melodia"
+	    name: "Melodia",
 	    address: process.env.EMAIL
 	},
         to: email,
