@@ -53,7 +53,7 @@ const deleteUser = async (req, res) => {
     try{
         const accessToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
         if (!accessToken) return res.sendStatus(401);
-        const user = await User.findOneAndDelete({ accessToken: accessToken });
+        await User.findOneAndDelete({ accessToken: accessToken });
         return res.sendStatus(200);
     } catch(err) {
         console.log(err);
