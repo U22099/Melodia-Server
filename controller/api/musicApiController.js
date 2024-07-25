@@ -6,15 +6,6 @@ const User = require('../../model/User');
 const getMusic = async (req, res) => {
     const music = await Music.find({}, 'artist title image genre uploader');
 
-    			const mus = music.filter(x => x.title === "Lighters");
-			if(mus){
-				console.log(mus)
-				Promise.all(mus.map(async (x) => {
-				const image = (await User.findOne({username: "James"})).image;
-				x.image = image;
-				await x.save();
-				}));
-			}
     res.json({ "music": music });
 }
 
