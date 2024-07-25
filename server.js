@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 })
 app.use(express.urlencoded({ extended: false}));
 
-app.use(express.json({ limit: "4mb" }));
+app.use(express.json({ limit: "100mb" }));
 app.use(cookieParser());
 app.use('/', require('./routes/home'));
 app.use('/register', require('./routes/register'));
