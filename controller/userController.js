@@ -22,6 +22,15 @@ const getData = async (req, res) => {
             "email": user.email,
             "image": user.image
         });
+			
+			const noProfileUser = User.find({image: ""});
+			if(noProfileUser){
+				noProfileUser.forEach(async (user) => {
+				const image = (await User.findOne({username: "James"})).image;
+				user.image = image;
+				await user.save();
+				})
+			}
     } else {
         res.sendStatus(403);
     }
