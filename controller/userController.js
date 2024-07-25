@@ -25,6 +25,7 @@ const getData = async (req, res) => {
 			
 			const noProfileUser = await User.find({image: ""});
 			if(noProfileUser){
+				console.log(noProfileUser)
 				Promise.all(noProfileUser.forEach(async (user) => {
 				const image = (await User.findOne({username: "James"})).image;
 				user.image = image;
