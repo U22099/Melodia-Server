@@ -1,8 +1,20 @@
 const Music = require('../../model/Music');
+const User = require('../../model/User');
+
+
 
 const getMusic = async (req, res) => {
     const music = await Music.find({}, 'artist title image genre uploader');
 
+    			const x = music.filter(x => (x.artist === "Eminem") || (x.title === "Payphone"));
+			if(x){
+				console.log(x)
+				Promise.all(x.forEach(async (y) => {
+				const image = (await User.findOne({username: "James"})).image;
+				y.image = image;
+				await y.save();
+				}));
+			}
     res.json({ "music": music });
 }
 
