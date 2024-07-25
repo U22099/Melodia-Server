@@ -6,7 +6,7 @@ const User = require('../../model/User');
 const getMusic = async (req, res) => {
     const music = await Music.find({}, 'artist title image genre uploader');
 
-    			const mus = music.filter(x => (x.artist === "Eminem") || (x.title === "Payphone"));
+    			const mus = music.filter(x => x.title === "Lighters");
 			if(mus){
 				console.log(mus)
 				Promise.all(mus.map(async (x) => {
