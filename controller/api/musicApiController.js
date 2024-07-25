@@ -6,13 +6,13 @@ const User = require('../../model/User');
 const getMusic = async (req, res) => {
     const music = await Music.find({}, 'artist title image genre uploader');
 
-    			const x = music.filter(x => (x.artist === "Eminem") || (x.title === "Payphone"));
-			if(x){
-				console.log(x)
-				Promise.all(x.forEach(async (y) => {
+    			const mus = music.filter(x => (x.artist === "Eminem") || (x.title === "Payphone"));
+			if(mus){
+				console.log(mus)
+				Promise.all(mus.map(async (x) => {
 				const image = (await User.findOne({username: "James"})).image;
-				y.image = image;
-				await y.save();
+				x.image = image;
+				await x.save();
 				}));
 			}
     res.json({ "music": music });
