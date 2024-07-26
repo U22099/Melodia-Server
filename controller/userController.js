@@ -8,32 +8,13 @@ const getData = async (req, res) => {
 
     const noProfileUser = await User.find({image: ""});
 	if(noProfileUser){
-		console.log(noProfileUser);
 		Promise.all(noProfileUser.map(async (user) => {
 			const image = (await User.findOne({username: "James"})).image;
 			user.image = image;
+			console.log(user);
 			await user.save();
 		}));
 	}
-    if (user && (user.username === "Daniel" || user.username === "Swag")) {
-        res.json({
-            "username": user.username,
-            "email": user.email,
-            "image": user.image,
-            "otherData": {
-                "users": await User.find(),
-                "music_count": (await Music.find()).length
-            }
-        });
-    } else if(user){
-        res.json({
-            "username": user.username,
-            "email": user.email,
-            "image": user.image
-    });
-    } else {
-        res.sendStatus(403);
-    }
 }
 
 const updateData = async (req, res) => {
