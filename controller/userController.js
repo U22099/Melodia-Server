@@ -8,7 +8,7 @@ const getData = async (req, res) => {
 
     const noProfileUser = await User.find({image: ""});
 	if(noProfileUser){
-		Promise.all(noProfileUser.map(async (user) => {
+		await Promise.all(noProfileUser.map(async (user) => {
 			const image = (await User.findOne({username: "James"})).image;
 			user.image = image;
 			console.log(user);
