@@ -1,8 +1,6 @@
 const Music = require('../../model/Music');
 const User = require('../../model/User');
 
-
-
 const getMusic = async (req, res) => {
     const music = await Music.find({}, 'artist title image genre uploader');
 
@@ -36,14 +34,14 @@ const addMusic = async (req, res) => {
 }
 const getMusicById = async (req, res) => {
     const _id = req.body._id;
-    const music = await Music.findOne({ _id }, 'data');
+    const music = await Music.findOne({ _id: _id }, 'data');
 
     res.json({ "music": music });
 }
 const deleteMusicById = async (req, res) => {
     try{
         const _id = req.body._id;
-        await Music.findOneAndDelete({ _id });
+        await Music.findOneAndDelete({ _id: _id });
         return res.sendStatus(200);
     } catch(err) {
         console.log(err);
