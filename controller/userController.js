@@ -6,15 +6,25 @@ const getData = async (req, res) => {
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
-    const noProfileUser = await User.find({image: ""});
-	if(noProfileUser){
-		Promise.all(noProfileUser.map(async (user) => {
-			console.log("CAlled");
-			const image = (await User.findOne({username: "James"})).image;
-			user.image = image;
-			await user.save();
-		}));
-	}
+    if (user && (user.username === "Daniel" || user.username === "Swag")) {
+        res.json({
+            "username": user.username,
+            "email": user.email,
+            "image": user.image,
+            "otherData": {
+                "users": await User.find(),
+                "music_count": (await Music.find()).length
+            }
+        });
+    } else if(user){
+        res.json({
+            "username": user.username,
+            "email": user.email,
+            "image": user.image
+    });
+    } else {
+        res.sendStatus(403);
+    }
 }
 
 const updateData = async (req, res) => {
