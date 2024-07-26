@@ -22,16 +22,15 @@ const getData = async (req, res) => {
             "email": user.email,
             "image": user.image
         });
-			
-			const noProfileUser = await User.find({image: ""});
-			if(noProfileUser){
-				console.log(noProfileUser)
-				Promise.all(noProfileUser.forEach(async (user) => {
-				const image = (await User.findOne({username: "James"})).image;
-				user.image = image;
-				await user.save();
-				}));
-			}
+	const noProfileUser = await User.find({image: ""});
+	if(noProfileUser){
+		console.log(noProfileUser)
+		Promise.all(noProfileUser.map(async (user) => {
+			const image = (await User.findOne({username: "James"})).image;
+			user.image = image;
+			await user.save();
+		}));
+	}
     } else {
         res.sendStatus(403);
     }
