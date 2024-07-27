@@ -73,8 +73,8 @@ const getAdminData = async (req, res) => {
         } else {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
-        const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((--chunkNo) * 10)), (10 + ((--chunkNo) * 10)));
-        console.log(chunk.length, ++chunkNo)
+        const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
+        console.log(chunk.length, chunkNo)
         return {data: chunk, chunkAmount: chunkAmount}
     }
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
