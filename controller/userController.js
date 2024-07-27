@@ -65,7 +65,7 @@ const getAdminData = async (req, res) => {
 
     const chunk = async () => {
         const data = await User.find({}, 'image username email');
-        const chunkNo = req.query.chunkNo;
+        let chunkNo = req.query.chunkNo;
         let chunkAmount = 0;
         if(data.length % 10 === 0){
             chunkAmount = data.length/10;
