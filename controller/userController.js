@@ -72,7 +72,7 @@ const getAdminData = async (req, res) => {
         } else {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
-        const chunk = data.slice(((chunk > 1 ? 1 : 0) + ((--chunkNo) * 10)), (10 + ((--chunkNo) * 10)));
+        const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((--chunkNo) * 10)), (10 + ((--chunkNo) * 10)));
         console.log(chunk.length, ++chunkNo)
         return {data: chunk, chunkAmount: chunkAmount}
     }
