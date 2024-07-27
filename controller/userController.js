@@ -65,7 +65,7 @@ const getAdminData = async (req, res) => {
 
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
         res.json({
-            "users": await User.find(),
+            "users": await User.find({}, 'image username email'),
             "musicCount": (await Music.find()).length
         });
     } else {
