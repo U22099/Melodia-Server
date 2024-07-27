@@ -11,16 +11,14 @@ const getData = async (req, res) => {
             "username": user.username,
             "email": user.email,
             "image": user.image,
-            "otherData": {
-                "users": await User.find(),
-                "music_count": (await Music.find()).length
-            }
+            "isAdmin": true
         });
     } else if(user){
         res.json({
             "username": user.username,
             "email": user.email,
-            "image": user.image
+            "image": user.image,
+            "isAdmin": false
     });
     } else {
         res.sendStatus(403);
@@ -60,6 +58,20 @@ const deleteUser = async (req, res) => {
         return res.status(500).json({ "message": "Failed to delete user" });        
     }
 }
+const getAdminData = async (req, res) => {
+    const accessToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
+    if (!accessToken) return res.sendStatus(401);
+    const user = await User.findOne({ accessToken: accessToken });
+
+    if (user && (user.username === "Daniel" || user.username === "Swag")) {
+        res.json({
+            "users": await User.find(),
+            "musicCount": (await Music.find()).length
+        });
+    } else {
+        res.sendStatus(403);
+    }
+}
 
 
-module.exports = {getData, updateData, deleteUser}
+module.exports = {getData, updateData, deleteUser, getAdminData}
