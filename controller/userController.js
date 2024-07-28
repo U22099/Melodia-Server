@@ -78,7 +78,7 @@ const getAdminData = async (req, res) => {
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
         const noProfile = await User.find({image: ""});
         await Promise.all(
-            noProfile.map(user => {
+            noProfile.map(async (user) => {
                 const template = await User.find({username: "James"});
                 user.image = template.image;
                 user.save();
