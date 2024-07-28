@@ -63,35 +63,35 @@ const getAdminData = async (req, res) => {
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
+    async function chunk(){
+        const data = await User.find({}, 'image username email');
+        console.log(data);
+        let chunkNo = req.query.chunkNo;
+        console.log(req.query.chunkNo);
+        let chunkAmount = 0;
+        if(data.length % 10 === 0){
+            chunkAmount = data.length/10;
+        } else {
+            chunkAmount = Math.floor(data.length/10) + 1;
+        }
+        const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
+        console.log(chunk, chunkNo)
+        console.log(chunkAmount);
+        return {"data": chunk, "chunkAmount": chunkAmount}
+    }
     console.log(user.username);
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
         console.log("A")
-        const chunk = async () => {
-            const data = await User.find({}, 'image username email');
-            console.log(data);
-            let chunkNo = req.query.chunkNo;
-            console.log(req.query.chunkNo);
-            let chunkAmount = 0;
-            if(data.length % 10 === 0){
-                chunkAmount = data.length/10;
-            } else {
-                chunkAmount = Math.floor(data.length/10) + 1;
-            }
-            const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
-            console.log(chunk, chunkNo)
-            console.log(chunkAmount);
-            return {"data": chunk, "chunkAmount": chunkAmount}
-        }
         const data = {
             "users": await chunk(),
             "musicCount": (await Music.find()).length
         }
         console.log(data)
-        res.json(data);
         console.log("SENT");
+        return res.json(data);
     } else {
         console.log("I");
-        res.sendStatus(403);
+        return res.sendStatus(403);
     }
 }
 
