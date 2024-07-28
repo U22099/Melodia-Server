@@ -80,7 +80,7 @@ const getAdminData = async (req, res) => {
 	const no = await Music.countDocuments();
 	console.log(chunk.length, no);
         res.json({
-            "users": chunk,
+            "users": {chunk: chunk, chunkAmount: chunkAmount},
             "musicCount": no
         });
     } else {
