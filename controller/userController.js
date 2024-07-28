@@ -79,7 +79,7 @@ const getAdminData = async (req, res) => {
     }
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
         const x = await chunk();
-        const y = (await Music.find()).length;
+        const y = 23
         console.log(x)
         console.log(y)
         const data = {
