@@ -9,6 +9,7 @@ const verifyJWT = (req, res, next) => {
         token,
         process.env.ACCESS_TOKEN_SECRET,
         (err, decoded) => {
+            console.log(err)
             if(err) return res.status(403).json({'message': 'Wrong Token'});
             req.username = decoded.username;
             next()
