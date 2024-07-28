@@ -78,12 +78,42 @@ const getAdminData = async (req, res) => {
         return {"data": chunk, "chunkAmount": chunkAmount}
     }
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
-        const x = await chunk();
-        const y = 23
-        console.log(x)
-        console.log(y)
+        
         const data = {
-            "users": await x,
+            "users": const getAdminData = async (req, res) => {
+    const accessToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
+    if (!accessToken) return res.sendStatus(401);
+    const user = await User.findOne({ accessToken: accessToken });
+
+    if (user && (user.username === "Daniel" || user.username === "Swag")) {
+        const data = await User.find({}, 'image username email');
+        console.log("called");
+        let chunkNo = req.query.chunkNo;
+        let chunkAmount = 0;
+        if(data.length % 10 === 0){
+            chunkAmount = data.length/10;
+        } else {
+            chunkAmount = Math.floor(data.length/10) + 1;
+        }
+        const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
+        console.log("called");
+		  console.log((await Music.find()).length)
+        const y = 23
+        const data = {
+            "users": chunk,
+            "musicCount": y
+        }
+        console.log(data)
+        res.json({
+            "users": chunk,
+            "musicCount": y
+        });
+    } else {
+        res.sendStatus(403);
+    }
+}
+
+,
             "musicCount": y
         }
         console.log(data)
