@@ -68,6 +68,7 @@ const getAdminData = async (req, res) => {
         console.log("A")
         const chunk = async () => {
             const data = await User.find({}, 'image username email');
+            console.log(data);
             let chunkNo = req.query.chunkNo;
             console.log(req.query.chunkNo);
             let chunkAmount = 0;
@@ -77,9 +78,9 @@ const getAdminData = async (req, res) => {
                 chunkAmount = Math.floor(data.length/10) + 1;
             }
             const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
-            console.log(chunk.length, chunkNo)
+            console.log(chunk, chunkNo)
             console.log(chunkAmount);
-            return {data: chunk, chunkAmount: chunkAmount}
+            return {"data": chunk, "chunkAmount": chunkAmount}
         }
         const data = {
             "users": await chunk(),
