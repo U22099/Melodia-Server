@@ -88,7 +88,7 @@ const getAdminData = async (req, res) => {
         }
         console.log(data)
         res.json({
-            "users": x,
+            "users": await x,
             "musicCount": y
         });
     } else {
