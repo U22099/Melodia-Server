@@ -74,9 +74,11 @@ const deleteUser = async (req, res) => {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
         const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
+	     const no = await Music.countDocuments();
+	     console.log(chunk, no);
         res.json({
             "users": chunk,
-            "musicCount": await Music.countDocuments()
+            "musicCount": no
         });
     } else {
         res.sendStatus(403);
