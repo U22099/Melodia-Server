@@ -63,8 +63,9 @@ const getAdminData = async (req, res) => {
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
-    console.log(user);
+    console.log(user.username);
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
+        console.log("A")
         const chunk = async () => {
             const data = await User.find({}, 'image username email');
             let chunkNo = req.query.chunkNo;
@@ -79,11 +80,14 @@ const getAdminData = async (req, res) => {
             console.log(chunk.length, chunkNo)
             return {data: chunk, chunkAmount: chunkAmount}
         }
-        res.json({
+        const data = {
             "users": await chunk(),
             "musicCount": (await Music.find()).length
-        });
+        }
+        res.json(data);
+        console.log("SENT");
     } else {
+        console.log("I");
         res.sendStatus(403);
     }
 }
