@@ -78,12 +78,14 @@ const getAdminData = async (req, res) => {
             }
             const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
             console.log(chunk.length, chunkNo)
+            console.log(chunkAmount);
             return {data: chunk, chunkAmount: chunkAmount}
         }
         const data = {
             "users": await chunk(),
             "musicCount": (await Music.find()).length
         }
+        console.log(data)
         res.json(data);
         console.log("SENT");
     } else {
