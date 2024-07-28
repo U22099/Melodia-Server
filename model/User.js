@@ -21,7 +21,7 @@ const userSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
     refreshToken: String,
     accessToken: String
 });
