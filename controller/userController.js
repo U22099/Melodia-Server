@@ -15,7 +15,7 @@ const getData = async (req, res) => {
 				await user.save();
 			}
 		}
-	)
+	))
     if (user) {
         res.json({
             "username": user.username,
