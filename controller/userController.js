@@ -68,7 +68,7 @@ const getAdminData = async (req, res) => {
     const user = await User.findOne({ accessToken: accessToken });
 
     if (user && user.isAdmin) {
-        const data = await User.find({}, 'image username email');
+        const data = (await User.find({}, 'image username email')).sort((a,b) => a.username.localeCompare(b.username));
         let chunkNo = req.query.chunkNo;
         let chunkAmount = 0;
         if(data.length % 10 === 0){
@@ -77,8 +77,8 @@ const getAdminData = async (req, res) => {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
         const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
-	    const no = await Music.countDocuments();
-	    console.log(chunk.length, no);
+	const no = await Music.countDocuments();
+	console.log(chunk.length, no);
         res.json({
             "users": chunk,
             "musicCount": no
