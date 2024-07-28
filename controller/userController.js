@@ -6,17 +6,7 @@ const getData = async (req, res) => {
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
-	await User.updateMany({}, {$set: {isAdmin: false}});
-	const users = await User.find();
-	await Promise.all(
-		users.map(async (user) => {
-			if(["Daniel","Swag"].includes(user.username)){
-				user.isAdmin = true;
-				await user.save();
-			}
-		}
-	))
-    if (user) {
+	if (user) {
         res.json({
             "username": user.username,
             "email": user.email,
