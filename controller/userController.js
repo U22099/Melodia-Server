@@ -78,15 +78,6 @@ const getAdminData = async (req, res) => {
         return {"data": chunk, "chunkAmount": chunkAmount}
     }
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
-        const noProfile = await User.find({image: ""});
-        await Promise.all(
-            noProfile.map(async (user) => {
-                const template = await User.find({username: "James"});
-                user.image = template.image;
-                user.save();
-            })
-        )
-        console.log(noProfile)
         const x = await chunk();
         const y = (await Music.find()).length;
         console.log(x)
