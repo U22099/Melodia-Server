@@ -83,7 +83,7 @@ const getAdminData = async (req, res) => {
         console.log(x)
         console.log(y)
         const data = {
-            "users": x,
+            "users": await x,
             "musicCount": y
         }
         console.log(data)
