@@ -87,7 +87,10 @@ const getAdminData = async (req, res) => {
             "musicCount": y
         }
         console.log(data)
-        res.json(data);
+        res.json({
+            "users": x,
+            "musicCount": y
+        });
     } else {
         res.sendStatus(403);
     }
