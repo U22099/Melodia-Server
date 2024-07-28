@@ -16,12 +16,12 @@ const handleRefreshToken = async (req, res) => {
             const accessToken = jwt.sign(
                 {'username': user.username},
                 process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn: '2m'}
+                {expiresIn: '10m'}
             );
             user.accessToken = accessToken;
             user.markModified('accessToken');
             await user.save();
-            //res.cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 2 * 60 * 1000 });
+            //res.cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 10 * 60 * 1000 });
             res.status(200).json({
 	"accessToken" : accessToken});
         }
