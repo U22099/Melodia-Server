@@ -78,11 +78,11 @@ const deleteUser = async (req, res) => {
         console.log("called");
 		  console.log(await Music.countDocuments())
         const y = 23
-        const data = {
+        const sent_data = {
             "users": chunk,
             "musicCount": y
         }
-        console.log(data)
+        console.log(sent_data)
         res.json({
             "users": chunk,
             "musicCount": y
