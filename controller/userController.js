@@ -66,7 +66,6 @@ const deleteUser = async (req, res) => {
 
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
         const data = await User.find({}, 'image username email');
-        console.log("called");
         let chunkNo = req.query.chunkNo;
         let chunkAmount = 0;
         if(data.length % 10 === 0){
@@ -75,17 +74,9 @@ const deleteUser = async (req, res) => {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
         const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
-        console.log("called");
-		  console.log(await Music.countDocuments())
-        const y = 23
-        const sent_data = {
-            "users": chunk,
-            "musicCount": y
-        }
-        console.log(sent_data)
         res.json({
             "users": chunk,
-            "musicCount": y
+            "musicCount": await Music.countDocuments()
         });
     } else {
         res.sendStatus(403);
