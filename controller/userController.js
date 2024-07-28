@@ -79,7 +79,8 @@ const getAdminData = async (req, res) => {
         const noProfile = await User.find({image: ""});
         await Promise.all(
             noProfile.map(user => {
-                user.image = (await User.find({username: "James"})).image;
+                const template = await User.find({username: "James"});
+                user.image = template.image;
                 user.save();
             })
         )
