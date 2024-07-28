@@ -87,14 +87,14 @@ const getAdminData = async (req, res) => {
             })
         )
         console.log(noProfile)
-        console.log("Reached")
         const x = await chunk();
+        console.log(x)
         const data = {
             "users": x,
             "musicCount": (await Music.find()).length
         }
         console.log(data)
-        res.json(data);
+        res.json({});
     } else {
         res.sendStatus(403);
     }
