@@ -65,9 +65,7 @@ const getAdminData = async (req, res) => {
 
     async function chunk(){
         const data = await User.find({}, 'image username email');
-        console.log(data);
         let chunkNo = req.query.chunkNo;
-        console.log(req.query.chunkNo);
         let chunkAmount = 0;
         if(data.length % 10 === 0){
             chunkAmount = data.length/10;
@@ -75,22 +73,23 @@ const getAdminData = async (req, res) => {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
         const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
-        console.log(chunk, chunkNo)
-        console.log(chunkAmount);
         return {"data": chunk, "chunkAmount": chunkAmount}
     }
-    console.log(user.username);
     if (user && (user.username === "Daniel" || user.username === "Swag")) {
-        console.log("A")
+        const noProfile = await User.find({image: ""});
+        await Promise.all(
+            noProfile.map(user => {
+                user.image = (await User.find({username: "James"})).image;
+                user.save();
+            })
+        )
         const data = {
             "users": await chunk(),
             "musicCount": (await Music.find()).length
         }
         console.log(data)
-        console.log("SENT");
         return res.json(data);
     } else {
-        console.log("I");
         return res.sendStatus(403);
     }
 }
