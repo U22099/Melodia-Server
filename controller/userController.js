@@ -6,20 +6,22 @@ const getData = async (req, res) => {
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
-    if (user && (user.username === "Daniel" || user.username === "Swag")) {
+	const users = await User.find();
+	await Promise.all(
+		users.map(async (user) => {
+			if(["Daniel","Swag"].includes(user.username)){
+				user.isAdmin = true;
+				await user.save();
+			}
+		}
+	)
+    if (user) {
         res.json({
             "username": user.username,
             "email": user.email,
             "image": user.image,
-            "isAdmin": true
+            "isAdmin": user.isAdmin
         });
-    } else if(user){
-        res.json({
-            "username": user.username,
-            "email": user.email,
-            "image": user.image,
-            "isAdmin": false
-    });
     } else {
         res.sendStatus(403);
     }
@@ -59,12 +61,12 @@ const deleteUser = async (req, res) => {
     }
 }
 
-        const getAdminData = async (req, res) => {
+const getAdminData = async (req, res) => {
     const accessToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
-    if (user && (user.username === "Daniel" || user.username === "Swag")) {
+    if (user && user.isAdmin) {
         const data = await User.find({}, 'image username email');
         let chunkNo = req.query.chunkNo;
         let chunkAmount = 0;
@@ -74,8 +76,8 @@ const deleteUser = async (req, res) => {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
         const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
-	     const no = await Music.countDocuments();
-	     console.log(chunk, no);
+	    const no = await Music.countDocuments();
+	    console.log(chunk.length, no);
         res.json({
             "users": chunk,
             "musicCount": no
