@@ -97,7 +97,7 @@ const getAdminData = async (req, res) => {
         }
         const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
         console.log("called");
-		  console.log((await Music.find()).length)
+		  console.log((await Music.countDocuments())
         const y = 23
         const data = {
             "users": chunk,
