@@ -90,6 +90,7 @@ const getAdminData = async (req, res) => {
         const x = await chunk();
         const y = (await Music.find()).length;
         console.log(x)
+        console.log(y)
         const data = {
             "users": x,
             "musicCount": y
