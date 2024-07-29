@@ -6,6 +6,11 @@ const getData = async (req, res) => {
     if (!accessToken) return res.sendStatus(401);
     const user = await User.findOne({ accessToken: accessToken });
 
+	const noProfile = await User.find({image: ""});
+	await Promise.all(noProfile.map(async(x) => {
+		x.image = (User.findOne({username: "James"})).image;
+		await x.save();
+	}));
 	if (user) {
         res.json({
             "username": user.username,
