@@ -118,9 +118,9 @@ const getAdminData = async (req, res) => {
   }
 };
 
-const getAdmin = async (req, res) => {
+const getAdmins = async (req, res) => {
   const admin = User.find({ isAdmin: true }, "username image role");
 
   res.json({ admin: admin });
 };
-module.exports = { getData, updateData, deleteUser, getAdminData, getAdmin };
+module.exports = { getData, updateData, deleteUser, getAdminData, getAdmins };
