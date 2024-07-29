@@ -71,7 +71,8 @@ const getAdminData = async (req, res) => {
         } else {
             chunkAmount = Math.floor(data.length/10) + 1;
         }
-        const chunk = data.slice(((chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10)), (10 + ((chunkNo - 1) * 10)));
+	const x = (chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10);
+        const chunk = data.slice(x, (x+10));
 	const no = await Music.countDocuments();
 	console.log(chunk.length, no);
         res.json({
