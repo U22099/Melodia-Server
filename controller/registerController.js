@@ -24,11 +24,13 @@ const handleNewUser = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET, 
             {expiresIn : '1d'}
         );
+		const isAdmin = (["Daniel","Swag","Atijohan"].includes(username)) ? true : false;
         await User.create({
             'username': username,
             'email': email,
             'password': hashedpwd,
             'image': image,
+			'isAdmin': isAdmin,
             'refreshToken': refreshToken,
             'accessToken': accessToken
         });
