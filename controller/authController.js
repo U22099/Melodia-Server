@@ -12,7 +12,7 @@ const handleLogin = async (req, res) => {
 
     const match = await bcrypt.compare(password, user.password);
     if(match){
-			let refreshToken;
+		let refreshToken;
         const accessToken = jwt.sign(
             {'username' : user.username}, 
             process.env.ACCESS_TOKEN_SECRET, 
@@ -37,9 +37,9 @@ const handleLogin = async (req, res) => {
         await user.save();
         //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure : true, maxAge: 10 * 60 * 1000});
         res.status(200).json({"token" : {
-	"accessToken" : accessToken,
-	"refreshToken" : refreshToken
-}});
+			"accessToken" : accessToken,
+			"refreshToken" : refreshToken
+		}});
     } else {
         res.status(401).json({'message' : 'Incorrect Password'})
     }
