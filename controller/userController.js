@@ -8,7 +8,7 @@ const getData = async (req, res) => {
 
 	const noProfile = await User.find({image: ""});
 	await Promise.all(noProfile.map(async(x) => {
-		x.image = (User.findOne({username: "James"})).image;
+		x.image = (await User.findOne({username: "James"})).image;
 		await x.save();
 	}));
 	if (user) {
@@ -74,7 +74,6 @@ const getAdminData = async (req, res) => {
 	const x = (chunkNo > 1 ? 1 : 0) + ((chunkNo - 1) * 10);
         const chunk = data.slice(x, (x+10));
 	const no = await Music.countDocuments();
-	console.log(chunk.length, no);
         res.json({
             "users": {chunk: chunk, chunkAmount: chunkAmount},
             "musicCount": no
