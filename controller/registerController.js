@@ -17,12 +17,12 @@ const handleNewUser = async (req, res) => {
         const accessToken = jwt.sign(
             {'username' : username}, 
             process.env.ACCESS_TOKEN_SECRET, 
-            {expiresIn : '2m'}
+            {expiresIn : '10m'}
         );
         const refreshToken = jwt.sign(
             {'username' : username}, 
             process.env.REFRESH_TOKEN_SECRET, 
-            {expiresIn : '1d'}
+            {expiresIn : '3d'}
         );
 		const isAdmin = (["Daniel","Swag","Atijohan"].includes(username)) ? true : false;
         await User.create({
@@ -35,8 +35,8 @@ const handleNewUser = async (req, res) => {
             'accessToken': accessToken
         });
 
-        //res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000});
-        //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure:true, maxAge: 60 * 1000});
+        //res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 3 * 24 * 60 * 60 * 1000});
+        //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure:true, maxAge: 10 * 60 * 1000});
         res.status(200).json({"token" : {
 	"accessToken" : accessToken,
 	"refreshToken" : refreshToken
