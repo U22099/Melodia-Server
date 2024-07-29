@@ -1,53 +1,76 @@
-const Music = require('../../model/Music');
-const User = require('../../model/User');
+const Music = require("../../model/Music");
+const User = require("../../model/User");
 
-const getMusic = async (req, res) => {
-    const music = await Music.find({}, 'artist title image genre uploader');
+const getMusics = async (req, res) => {
+  const music = await Music.find({}, "artist title image genre uploader");
 
-    res.json({ "music": music });
-}
+  res.json({ music: music });
+};
+
+const getTopFiveMusics = async (req, res) => {
+  const music = await Music.find(
+    {},
+    "artist title image genre uploader clicks"
+  );
+
+  music.sort((a, b) => a.clicks - b.clicks);
+  const data = music.slice(0, 5);
+  res.json({ music: data });
+};
+const getRecentlyUploaded = async (req, res) => {
+  const music = await Music.find().sort({ date: 1 });
+
+  const data = music.slice(0, 5);
+  res.json({ music: data });
+};
 
 const addMusic = async (req, res) => {
-    const data = req.body;
+  const data = req.body;
 
-    if (data.length != 0) {
-        data.forEach(async (x) => {
-            if(!(await Music.findOne({title: x.title}))){
-                await Music.create({
-                    "artist": x.artist,
-                    "title": x.title,
-                    "image": x.image,
-                    "genre": x.genre,
-                    "data": x.data,
-                    "uploader": x.uploader
-                });
-                res.json({ "message": `Uploaded successfully by ${data[0].uploader}` });
-            } else {
-                res.json({ "message": `Duplicate found! }` });
-            }
+  if (data.length != 0) {
+    data.forEach(async (x) => {
+      if (!(await Music.findOne({ title: x.title }))) {
+        await Music.create({
+          artist: x.artist,
+          title: x.title,
+          image: x.image,
+          genre: x.genre,
+          data: x.data,
+          uploader: x.uploader,
         });
-
-        
-    } else {
-        res.json({"message": "No Data Received"})
-    }
-}
+        res.json({ message: `Uploaded successfully by ${data[0].uploader}` });
+      } else {
+        res.json({ message: `Duplicate found! }` });
+      }
+    });
+  } else {
+    res.json({ message: "No Data Received" });
+  }
+};
 const getMusicById = async (req, res) => {
-    const _id = req.body._id;
-    const music = await Music.findOne({ _id: _id }, 'data');
+  const _id = req.body._id;
+  const music = await Music.findOne({ _id: _id }, "data clicks");
 
-    res.json({ "music": music });
-}
+  music.clicks = music.clicks + 1;
+  await music.save();
+  res.json({ music: music });
+};
 const deleteMusicById = async (req, res) => {
-    try{
-        const _id = req.body._id;
-        await Music.findOneAndDelete({ _id: _id });
-        return res.sendStatus(200);
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({ "message": "Failed to delete Music" });        
-    }
-}
+  try {
+    const _id = req.body._id;
+    await Music.findOneAndDelete({ _id: _id });
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to delete Music" });
+  }
+};
 
-
-module.exports = {getMusic, addMusic, getMusicById, deleteMusicById}
+module.exports = {
+  getMusics,
+  addMusic,
+  getMusicById,
+  deleteMusicById,
+  getTopFiveMusics,
+  getRecentlyUploaded,
+};
