@@ -1,7 +1,9 @@
 const allowedOrigin = [
     'https://melodia-f4nd.onrender.com',
     'https://u22099.github.io',
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'https://n6kzfx-5173.csb.app',
+    'https://qrdw9g-5173.csb.app'
 ];
 
 const corsOption = {
