@@ -1,4 +1,6 @@
-const whitelist = ["https://u22099.github.io", "http://localhost:5173","https://qrdw9g-5173.csb.app"];
+const whitelist = ["https://u22099.github.io", 
+"http://localhost:5173",
+"https://qrdw9g-5173.csb.app"];
 
 const credentials = (req, res, next) => {
     const origin = req.headers.origin;
