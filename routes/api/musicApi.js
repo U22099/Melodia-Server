@@ -6,7 +6,7 @@ router.post("/", musicApiController.addMusic);
 router.get("/", musicApiController.getMusics);
 router.delete("/", musicApiController.deleteMusicById);
 router.post("/data", musicApiController.getMusicById);
-router.get("/top", musicApiController.getTopFiveMusics);
+router.get("/top", musicApiController.getTopSixMusics);
 router.get("/recent", musicApiController.getRecentlyUploaded);
 
 module.exports = router;

@@ -7,20 +7,20 @@ const getMusics = async (req, res) => {
   res.json({ music: music });
 };
 
-const getTopFiveMusics = async (req, res) => {
+const getTopSixMusics = async (req, res) => {
   const music = await Music.find(
     {},
     "artist title image genre uploader clicks"
   );
 
   music.sort((a, b) => a.clicks - b.clicks);
-  const data = music.slice(0, 5);
+  const data = music.slice(0, 6);
   res.json({ music: data });
 };
 const getRecentlyUploaded = async (req, res) => {
   const music = await Music.find().sort({ date: 1 });
 
-  const data = music.slice(0, 5);
+  const data = music.slice(0, 6);
   res.json({ music: data });
 };
 
@@ -71,6 +71,6 @@ module.exports = {
   addMusic,
   getMusicById,
   deleteMusicById,
-  getTopFiveMusics,
+  getTopSixMusics,
   getRecentlyUploaded,
 };

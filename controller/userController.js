@@ -15,6 +15,7 @@ const getData = async (req, res) => {
     { title: "Middle Of The Night || CeeNaija.com" },
     { $set: { clicks: 10 } }
   );
+  await Music.updataMany({ title: "Alec Benjamin - Devil Doesn't Bargain [Official]" }, { $set: { clicks: 9} });
   await Music.updataMany({ title: "Gnat" }, { $set: { clicks: 8 } });
   await Music.updataMany(
     { title: "Spinnin || VistaNaija.Com" },
