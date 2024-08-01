@@ -21,7 +21,7 @@ const getRecentlyUploaded = async (req, res) => {
   const music = await Music.find().sort({ date: -1 }).limit(6).allowDiskUse(true);
   
  
-  console.log(music)
+  console.log(music.length);
   res.json({ music: music });
 };
 
