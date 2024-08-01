@@ -10,22 +10,22 @@ const getData = async (req, res) => {
   );
   await User.updateMany({ username: "Swag" }, { $set: { role: "designer" } });
   await User.updateMany({ image: "" }, { $set: { image: jData.image } });
-  await Music.updataMany({}, { $set: { clicks: 1 } });
-  await Music.updataMany(
+  await Music.updateMany({}, { $set: { clicks: 1 } });
+  await Music.updateMany(
     { title: "Middle Of The Night || CeeNaija.com" },
     { $set: { clicks: 10 } }
   );
-  await Music.updataMany({ title: "Alec Benjamin - Devil Doesn't Bargain [Official]" }, { $set: { clicks: 9} });
-  await Music.updataMany({ title: "Gnat" }, { $set: { clicks: 8 } });
-  await Music.updataMany(
+  await Music.updateMany({ title: "Alec Benjamin - Devil Doesn't Bargain [Official]" }, { $set: { clicks: 9} });
+  await Music.updateMany({ title: "Gnat" }, { $set: { clicks: 8 } });
+  await Music.updateMany(
     { title: "Spinnin || VistaNaija.Com" },
     { $set: { clicks: 6 } }
   );
-  await Music.updataMany(
+  await Music.updateMany(
     { title: "Alan Walker - Alone" },
     { $set: { clicks: 4 } }
   );
-  await Music.updataMany(
+  await Music.updateMany(
     { title: "Unity | Nairaflaver.Com" },
     { $set: { clicks: 2 } }
   );
