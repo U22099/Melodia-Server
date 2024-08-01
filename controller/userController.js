@@ -124,4 +124,4 @@ const getDevs = async (req, res) => {
 
   res.json({ admin: admin });
 };
-module.exports = { getData, updateData, deleteUser, getAdminData, getDevs };
+module.exports = { getData, updateData, deleteUser, getUsersData, getDevs };
