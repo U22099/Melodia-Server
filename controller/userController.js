@@ -89,7 +89,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const getAdminData = async (req, res) => {
+const getUsersData = async (req, res) => {
   const accessToken =
     req.headers.Authorization?.split(" ")[1] ||
     req.headers.authorization?.split(" ")[1];
@@ -119,9 +119,9 @@ const getAdminData = async (req, res) => {
   }
 };
 
-const getAdmins = async (req, res) => {
+const getDevs = async (req, res) => {
   const admin = User.find({ isAdmin: true }, "username image role");
 
   res.json({ admin: admin });
 };
-module.exports = { getData, updateData, deleteUser, getAdminData, getAdmins };
+module.exports = { getData, updateData, deleteUser, getAdminData, getDevs };
