@@ -18,7 +18,7 @@ const getTopSixMusics = async (req, res) => {
   res.json({ music: data });
 };
 const getRecentlyUploaded = async (req, res) => {
-  const music = await Music.find()
+  const music = await Music.find({},  "artist title image genre uploader date")
   .allowDiskUse(true)
   .sort({ date: -1 })
   .limit(6)
