@@ -92,7 +92,7 @@ const getUsersData = async (req, res) => {
 };
 
 const getDevs = async (req, res) => {
-  const admin = User.find({ isAdmin: true }, "username image role");
+  const admin = await User.find({ isAdmin: true }, "username email image role");
 
   res.json({ admin: admin });
 };
