@@ -19,8 +19,7 @@ const getTopSixMusics = async (req, res) => {
 };
 const getRecentlyUploaded = async (req, res) => {
   const data = await Music.find({},  "artist title image genre uploader date")
-  const music = data.sort((a,b) => new Date(a.date) - new Date(b.date)).slice(0,6);
-  console.log(music.length);
+ const music = data.slice(-6);
   res.json({ music: music });
 };
 
