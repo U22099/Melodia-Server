@@ -4,6 +4,12 @@ const User = require("../../model/User");
 const getMusics = async (req, res) => {
   const music = await Music.find({}, "artist title image genre uploader");
 
+  for (let i = 0; i < music.length; i++) {
+    const count = music.filter((x) => x.title === music[i].title).length;
+    if (count > 1) {
+      Music.findOneAndDelete({ title: music[i].title });
+    }
+  }
   res.json({ music: music });
 };
 
@@ -18,8 +24,8 @@ const getTopSixMusics = async (req, res) => {
   res.json({ music: data });
 };
 const getRecentlyUploaded = async (req, res) => {
-  const data = await Music.find({},  "artist title image genre uploader date")
- const music = data.slice(-6).reverse();
+  const data = await Music.find({}, "artist title image genre uploader date");
+  const music = data.slice(-6).reverse();
   res.json({ music: music });
 };
 
