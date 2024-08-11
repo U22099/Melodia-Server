@@ -5,9 +5,9 @@ const getMusics = async (req, res) => {
   const music = await Music.find({}, "artist title image genre uploader");
 
   for (let i = 0; i < music.length; i++) {
-    const count = music.filter((x) => x.title === music[i].title).length;
+    const count = music.filter(x => x.title === music[i].title).length;
     if (count > 1) {
-      Music.findOneAndDelete({ title: music[i].title });
+      await Music.findOneAndDelete({ title: music[i].title });
     }
   }
   res.json({ music: music });
