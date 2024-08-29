@@ -17,12 +17,12 @@ const handleNewUser = async (req, res) => {
         const accessToken = jwt.sign(
             {'username' : username}, 
             process.env.ACCESS_TOKEN_SECRET, 
-            {expiresIn : '10m'}
+            {expiresIn : '1h'}
         );
         const refreshToken = jwt.sign(
             {'username' : username}, 
             process.env.REFRESH_TOKEN_SECRET, 
-            {expiresIn : '3d'}
+            {expiresIn : '7d'}
         );
 		const isAdmin = (["Daniel","Swag","Atijohan"].includes(username)) ? true : false;
         await User.create({
