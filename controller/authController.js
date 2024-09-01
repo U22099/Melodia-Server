@@ -31,7 +31,7 @@ const handleLogin = async (req, res) => {
         user.accessToken = accessToken;
         await user.save();
         //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure : true, maxAge: 10 * 60 * 1000});
-        res.status(200).json({ accessToken, refreshToken, _id: user._id}});
+        res.status(200).json({ accessToken, refreshToken, _id: user._id});
     } else {
         res.status(401).json({'message' : 'Incorrect Password'})
     }
