@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
 const handleRefreshToken = async (req, res) => {
-    const refreshToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
-    if(!refreshToken) return res.sendStatus(401);
-    const user = await User.findOne({ refreshToken: refreshToken });
+    const refreshToken = req.headers.Authorization?.split(' ')[1].split(",")[0];
+    const _id = req.headers.Authorization?.split(' ')[1].split(",")[1];
+    if(!refreshToken || !_id) return res.sendStatus(401);
+    const user = await User.findOne({ _id });
 
     if(!user) return res.sendStatus(403);
 
@@ -19,11 +20,9 @@ const handleRefreshToken = async (req, res) => {
                 {expiresIn: '1h'}
             );
             user.accessToken = accessToken;
-            user.markModified('accessToken');
             await user.save();
             //res.cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 10 * 60 * 1000 });
-            res.status(200).json({
-	"accessToken" : accessToken});
+            res.status(200).json({ accessToken});
         }
     )
 }

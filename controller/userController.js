@@ -2,11 +2,10 @@ const User = require("../model/User");
 const Music = require("../model/Music");
 
 const getData = async (req, res) => {
-  const accessToken =
-    req.headers.Authorization?.split(" ")[1] ||
-    req.headers.authorization?.split(" ")[1];
-  if (!accessToken) return res.sendStatus(401);
-  const user = await User.findOne({ accessToken: accessToken });
+  const _id =
+    req.headers.Authorization?.split(" ")[1].split(",")[1];
+  if (!_id) return res.sendStatus(401);
+  const user = await User.findOne({ _id });
   if (user) {
     res.json({
       username: user.username,
@@ -20,11 +19,10 @@ const getData = async (req, res) => {
 };
 
 const updateData = async (req, res) => {
-  const accessToken =
-    req.headers.Authorization?.split(" ")[1] ||
-    req.headers.authorization?.split(" ")[1];
-  if (!accessToken) return res.sendStatus(401);
-  const user = await User.findOne({ accessToken: accessToken });
+  const _id =
+    req.headers.Authorization?.split(" ")[1].split(",")[1];
+  if (!_id) return res.sendStatus(401);
+  const user = await User.findOne({ _id });
   const newUsername = req.body.username;
   const newEmail = req.body.email;
   const newImage = req.body.image;
@@ -49,11 +47,10 @@ const updateData = async (req, res) => {
 };
 const deleteUser = async (req, res) => {
   try {
-    const accessToken =
-      req.headers.Authorization?.split(" ")[1] ||
-      req.headers.authorization?.split(" ")[1];
-    if (!accessToken) return res.sendStatus(401);
-    await User.findOneAndDelete({ accessToken: accessToken });
+    const _id =
+    req.headers.Authorization?.split(" ")[1].split(",")[1];
+  if (!_id) return res.sendStatus(401);
+   await User.findOneAndDelete({ _id });
     return res.sendStatus(200);
   } catch (err) {
     console.log(err);
@@ -62,11 +59,10 @@ const deleteUser = async (req, res) => {
 };
 
 const getUsersData = async (req, res) => {
-  const accessToken =
-    req.headers.Authorization?.split(" ")[1] ||
-    req.headers.authorization?.split(" ")[1];
-  if (!accessToken) return res.sendStatus(401);
-  const user = await User.findOne({ accessToken: accessToken });
+  const _id =
+    req.headers.Authorization?.split(" ")[1].split(",")[1];
+  if (!_id) return res.sendStatus(401);
+  const user = await User.findOne({ _id });
 
   if (user && user.isAdmin) {
     const data = (await User.find({}, "image username email")).sort((a, b) =>

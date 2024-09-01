@@ -1,8 +1,8 @@
 const User = require('../model/User');
 const logOut = async (req, res) => {
-    const refreshToken = req.headers.Authorization?.split(' ')[1] || req.headers.authorization?.split(' ')[1];
-    if(!refreshToken) return res.sendStatus(401);
-    const user = await User.findOne({ refreshToken: refreshToken });
+    const _id = req.headers.Authorization?.split(' ')[1].split(",")[1];
+    if(!_id) return res.sendStatus(401);
+    const user = await User.findOne({ _id });
 
     if(user){
         user.refreshToken = "";

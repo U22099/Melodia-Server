@@ -25,22 +25,17 @@ const handleNewUser = async (req, res) => {
             {expiresIn : '7d'}
         );
 		const isAdmin = (["Daniel","Swag","Atijohan"].includes(username)) ? true : false;
-        await User.create({
+        const newUser = await User.create({
             'username': username,
             'email': email,
             'password': hashedpwd,
             'image': image,
-			'isAdmin': isAdmin,
-            'refreshToken': refreshToken,
-            'accessToken': accessToken
+	   'isAdmin': isAdmin
         });
 
         //res.cookie('refreshToken', refreshToken, {httpOnly: true, sameSite: 'None', secure: true, maxAge: 3 * 24 * 60 * 60 * 1000});
         //res.cookie('accessToken', accessToken, {httpOnly: true, sameSite: 'None', secure:true, maxAge: 10 * 60 * 1000});
-        res.status(200).json({"token" : {
-	"accessToken" : accessToken,
-	"refreshToken" : refreshToken
-}});
+        res.status(200).json({ accessToken, refreshToken, _id: newUser._id}});
     } catch (error) {
         console.log(error);
         res.status(500).json({'message' : error.message})
