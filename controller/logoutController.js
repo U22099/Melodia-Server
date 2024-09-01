@@ -1,6 +1,7 @@
 const User = require('../model/User');
 const logOut = async (req, res) => {
-    const _id = req.headers.Authorization?.split(' ')[1].split(",")[1];
+    const _id =
+    req.headers.Authorization?.split(" ")[1].split("/")[1] ||     req.headers.authorization?.split(" ")[1].split("/")[1];
     if(!_id) return res.sendStatus(401);
     const user = await User.findOne({ _id });
 
