@@ -1,7 +1,8 @@
 const User = require('../model/User');
 const logOut = async (req, res) => {
     const _id =
-    req.headers.Authorization?.split(" ")[1] || req.headers.authorization?.split(" ")[1];
+    req.headers.Authorization?.split(" ")[1];
+    console.log(req.headers.Authorization);
     if(!_id){
         console.log("No id provided: ", _id);
         return res.sendStatus(401);
