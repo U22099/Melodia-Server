@@ -3,7 +3,7 @@ const Music = require("../model/Music");
 
 const getData = async (req, res) => {
   const _id =
-    req.headers.Authorization?.split(" ")[1].split("/")[1] ||     req.headers.authorization?.split(" ")[1].split("/")[1];
+    req.headers.Authorization?.split(" ")[1].split("/")[1] || req.headers.authorization?.split(" ")[1].split("/")[1];
   if (!_id) return res.sendStatus(401);
   const user = await User.findOne({ _id });
   if (user) {
@@ -20,7 +20,7 @@ const getData = async (req, res) => {
 
 const updateData = async (req, res) => {
   const _id =
-    req.headers.Authorization?.split(" ")[1].split("/")[1] ||     req.headers.authorization?.split(" ")[1].split("/")[1];
+    req.headers.Authorization?.split(" ")[1].split("/")[1] || req.headers.authorization?.split(" ")[1].split("/")[1];
   if (!_id) return res.sendStatus(401);
   const user = await User.findOne({ _id });
   const newUsername = req.body.username;
@@ -60,7 +60,7 @@ const deleteUser = async (req, res) => {
 
 const getUsersData = async (req, res) => {
   const _id =
-    req.headers.Authorization?.split(" ")[1].split("/")[1] ||     req.headers.authorization?.split(" ")[1].split("/")[1];
+    req.headers.Authorization?.split(" ")[1].split("/")[1] || req.headers.authorization?.split(" ")[1].split("/")[1];
   if (!_id) return res.sendStatus(401);
   const user = await User.findOne({ _id });
 

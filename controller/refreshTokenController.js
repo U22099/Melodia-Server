@@ -4,7 +4,7 @@ const User = require('../model/User');
 const handleRefreshToken = async (req, res) => {
     const refreshToken = req.headers.Authorization?.split(' ')[1].split("/")[0] || req.headers.authorization?.split(' ')[1].split("/")[0];
     const _id =
-    req.headers.Authorization?.split(" ")[1].split("/")[1] ||     req.headers.authorization?.split(" ")[1].split("/")[1];
+    req.headers.Authorization?.split(" ")[1].split("/")[1] || req.headers.authorization?.split(" ")[1].split("/")[1];
     if(!refreshToken || !_id) return res.sendStatus(401);
     const user = await User.findOne({ _id });
 
